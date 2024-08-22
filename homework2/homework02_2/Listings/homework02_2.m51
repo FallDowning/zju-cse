@@ -1,0 +1,161 @@
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    04/24/2024  22:11:52  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
+D:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\homework02_2.obj TO .\Objects\homework02_2 PRINT (.\Listings\homework02_2.m51)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\homework02_2.obj (HOMEWORK02_2)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  .\Objects\homework02_2 (HOMEWORK02_2)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0006H     UNIT         ?DT?HOMEWORK02_2
+            IDATA   000EH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0003H     ABSOLUTE     
+            CODE    0006H     000DH     UNIT         ?C_INITSEG
+            CODE    0013H     0003H     ABSOLUTE     
+            CODE    0016H     008CH     UNIT         ?C_C51STARTUP
+            CODE    00A2H     0063H     UNIT         ?PR?MAIN?HOMEWORK02_2
+            CODE    0105H     0053H     UNIT         ?PR?VOID_SERVICE_INT1?HOMEWORK02_2
+            CODE    0158H     001EH     UNIT         ?PR?_DELAY?HOMEWORK02_2
+            CODE    0176H     0004H     UNIT         ?PR?VOID_SERVICE_INT0?HOMEWORK02_2
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\homework02_2 (HOMEWORK02_2)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?PR?VOID_SERVICE_INT1?HOMEWORK02_2
+  +--> ?PR?_DELAY?HOMEWORK02_2
+
+*** NEW ROOT ***************************************************
+
+?C_C51STARTUP
+  +--> ?PR?MAIN?HOMEWORK02_2
+  +--> ?C_INITSEG
+
+?PR?MAIN?HOMEWORK02_2
+  +--> ?PR?_DELAY?HOMEWORK02_2
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\homework02_2 (HOMEWORK02_2)
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  04/24/2024  22:11:52  PAGE 2
+
+
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        HOMEWORK02_2
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  C:0158H         PUBLIC        _delay
+  B:00B0H.2       PUBLIC        P3_2
+  B:00B0H.3       PUBLIC        P3_3
+  D:0008H         PUBLIC        flag
+  C:00A2H         PUBLIC        main
+  D:0009H         PUBLIC        open
+  B:0088H.3       PUBLIC        IE1
+  B:00A8H.0       PUBLIC        EX0
+  B:0088H.0       PUBLIC        IT0
+  B:00A8H.2       PUBLIC        EX1
+  B:0088H.2       PUBLIC        IT1
+  D:000AH         PUBLIC        status1
+  D:000BH         PUBLIC        status2
+  C:0176H         PUBLIC        void_service_int0
+  C:0105H         PUBLIC        void_service_int1
+  D:000CH         PUBLIC        temp1
+  D:000DH         PUBLIC        temp2
+  -------         PROC          VOID_SERVICE_INT0
+  C:0176H         LINE#         11
+  C:0176H         LINE#         13
+  C:0179H         LINE#         14
+  -------         ENDPROC       VOID_SERVICE_INT0
+  -------         PROC          VOID_SERVICE_INT1
+  C:0105H         LINE#         16
+  C:0122H         LINE#         18
+  C:0125H         LINE#         19
+  C:012CH         LINE#         20
+  C:012FH         LINE#         21
+  C:012FH         LINE#         23
+  C:012FH         LINE#         24
+  C:013BH         LINE#         25
+  C:013DH         LINE#         26
+  -------         ENDPROC       VOID_SERVICE_INT1
+  -------         PROC          MAIN
+  C:00A2H         LINE#         28
+  C:00A2H         LINE#         29
+  C:00A2H         LINE#         31
+  C:00ACH         LINE#         32
+  C:00ACH         LINE#         33
+  C:00ACH         LINE#         34
+  C:00B1H         LINE#         35
+  C:00B1H         LINE#         36
+  C:00B8H         LINE#         37
+  C:00BBH         LINE#         38
+  C:00BBH         LINE#         40
+  C:00BBH         LINE#         41
+  C:00BEH         LINE#         42
+  C:00CBH         LINE#         44
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  04/24/2024  22:11:52  PAGE 3
+
+
+  C:00CEH         LINE#         45
+  C:00CEH         LINE#         46
+  C:00D3H         LINE#         47
+  C:00D3H         LINE#         48
+  C:00D7H         LINE#         49
+  C:00D7H         LINE#         50
+  C:00E4H         LINE#         51
+  C:00E6H         LINE#         52
+  C:00EDH         LINE#         53
+  C:00EFH         LINE#         54
+  C:00F3H         LINE#         55
+  C:00F3H         LINE#         56
+  C:00F6H         LINE#         57
+  C:00F9H         LINE#         58
+  C:0100H         LINE#         59
+  C:0100H         LINE#         60
+  C:0103H         LINE#         61
+  C:0103H         LINE#         62
+  -------         ENDPROC       MAIN
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        time
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+  C:0158H         LINE#         65
+  C:0158H         LINE#         66
+  C:0158H         LINE#         68
+  C:0161H         LINE#         69
+  C:0161H         LINE#         71
+  C:016EH         LINE#         73
+  C:0175H         LINE#         74
+  -------         ENDPROC       _DELAY
+  -------         ENDMOD        HOMEWORK02_2
+
+Program Size: data=15.0 xdata=0 code=378
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

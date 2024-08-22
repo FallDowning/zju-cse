@@ -1,0 +1,77 @@
+A51 MACRO ASSEMBLER  HOMEWORK01_2                                                         04/17/2024 21:26:39 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\homework01_2.obj
+ASSEMBLER INVOKED BY: D:\Keil_v5\C51\BIN\A51.EXE homework01_2.a51 SET(SMALL) DEBUG PRINT(.\Listings\homework01_2.lst) OB
+                      JECT(.\Objects\homework01_2.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1                   ORG 0000H
+0000 020030            2                       LJMP MAIN
+0030                   3               ORG 0030H
+0030 780A              4      MAIN:    MOV R0,#0AH
+0032 7905              5               MOV R1,#05H
+0034 7A00              6                       MOV R2,#0
+0036 753000            7                       MOV 30H,#0
+0039 753100            8               MOV 31H,#0
+003C 753264            9                       MOV 32H,#64H
+003F 753300           10                       MOV 33H,#0
+0042 753400           11               MOV 34H,#0
+0045 753500           12               MOV 35H,#0              
+0048 E532             13      LOOP:    MOV A,32H
+004A 13               14               RRC A
+004B 4011             15                       JC ODD
+004D E530             16               MOV A,30H
+004F 13               17               RRC A
+0050 F530             18                       MOV 30H,A
+0052 E531             19                       MOV A,31H
+0054 13               20                       RRC A
+0055 F531             21                       MOV 31H,A
+0057 E532             22                       MOV A,32H
+0059 13               23                       RRC A
+005A F532             24                       MOV 32H,A
+005C 8025             25                       SJMP JUDGE
+005E C3               26      ODD:     CLR C
+005F E532             27               MOV A,32H
+0061 89F0             28               MOV B,R1
+0063 A4               29                       MUL AB
+0064 F532             30                       MOV 32H,A
+0066 85F034           31                       MOV 34H,B
+0069 E531             32                       MOV A,31H
+006B 89F0             33                       MOV B,R1
+006D A4               34                       MUL AB
+006E 85F035           35                       MOV 35H,B
+0071 2534             36                       ADD A,34H
+0073 F531             37                       MOV 31H,A
+0075 E530             38                       MOV A,30H
+0077 89F0             39                       MOV B,R1
+0079 A4               40                       MUL AB
+007A 3535             41                       ADDC A,35H
+007C F530             42                       MOV 30H,A
+007E E533             43                       MOV A,33H
+0080 04               44                       INC A
+0081 F533             45                       MOV 33H,A
+0083 D8C3             46      JUDGE:    DJNZ R0,LOOP
+0085 80FE             47                       SJMP $
+                      48               end 
+A51 MACRO ASSEMBLER  HOMEWORK01_2                                                         04/17/2024 21:26:39 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+JUDGE. . . . . . .  C ADDR   0083H   A   
+LOOP . . . . . . .  C ADDR   0048H   A   
+MAIN . . . . . . .  C ADDR   0030H   A   
+ODD. . . . . . . .  C ADDR   005EH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

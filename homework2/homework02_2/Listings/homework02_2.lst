@@ -1,0 +1,101 @@
+C51 COMPILER V9.60.7.0   HOMEWORK02_2                                                      04/24/2024 22:11:52 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE HOMEWORK02_2
+OBJECT MODULE PLACED IN .\Objects\homework02_2.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE homework02_2.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listi
+                    -ngs\homework02_2.lst) TABS(2) OBJECT(.\Objects\homework02_2.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #include "intrins.h"
+   3          unsigned char status1,status2;
+   4          unsigned char flag = 0;
+   5          unsigned char temp1 = 0XFE;
+   6          unsigned char temp2 = 0xFE;
+   7          unsigned char open = 0;
+   8          void delay (unsigned int time);
+   9          sbit P3_3 = P3^3 ;
+  10          sbit P3_2 = P3^2 ;
+  11          void_service_int0 () interrupt 0
+  12          {
+  13   1        flag = 1;
+  14   1      }
+  15          
+  16          void_service_int1 () interrupt 2
+  17          {
+  18   1        flag = 2;
+  19   1        delay(500);
+  20   1        while(!P3_3)
+  21   1        {
+  22   2          ;
+  23   2        }
+  24   1        open = !open;
+  25   1        IE1 = 0;
+  26   1      }
+  27          
+  28          main()
+  29          {
+  30   1      
+  31   1        EA = 1; EX0 = 1; EX1 = 1; IT0 = 1; IT1 = 1;
+  32   1        while(1)
+  33   1        {
+  34   2          if(flag == 1)
+  35   2          {
+  36   3            delay(500);
+  37   3            while(!P3_2)
+  38   3            {
+  39   4              ;
+  40   4            }
+  41   3            P0 = temp1;
+  42   3            temp1 = _crol_(temp1,1);
+  43   3            
+  44   3            flag = 0;
+  45   3          }
+  46   2          if(flag == 2)
+  47   2          { 
+  48   3             while(open)
+  49   3            {
+  50   4              temp2 = _crol_(temp2,1);
+  51   4              P0 = temp2;
+  52   4              delay(1000);
+  53   4            }
+  54   3            if(open == 0)
+C51 COMPILER V9.60.7.0   HOMEWORK02_2                                                      04/24/2024 22:11:52 PAGE 2   
+
+  55   3            {
+  56   4              temp2 = 0xFE;
+  57   4              P0 = 0xFF;
+  58   4              delay(2000);
+  59   4            }
+  60   3            flag = 0;
+  61   3          }
+  62   2        }
+  63   1      }
+  64          // delaytime is parameter time times 5e-4
+  65          void delay (unsigned int time)
+  66          {
+  67   1        unsigned int i,j;
+  68   1        for(i=time;i>0;i--)
+  69   1        {
+  70   2          ;
+  71   2          for(j=124;j>0;j--)
+  72   2          ;
+  73   2        }
+  74   1      }
+  75          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    216    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      6    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,110 @@
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    04/17/2024  16:28:42  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
+D:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\homework01_1.obj TO .\Objects\homework01_1 PRINT (.\Listings\homework01_1.m51)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\homework01_1.obj (HOMEWORK01_1)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?COPY)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDPTR)
+
+
+LINK MAP OF MODULE:  .\Objects\homework01_1 (HOMEWORK01_1)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     001EH     UNIT         _DATA_GROUP_
+            IDATA   0026H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     010FH     UNIT         ?C?LIB_CODE
+            CODE    0112H     0089H     UNIT         ?PR?MAIN?HOMEWORK01_1
+            CODE    019BH     0019H     UNIT         ?CO?HOMEWORK01_1
+            CODE    01B4H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\homework01_1 (HOMEWORK01_1)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?HOMEWORK01_1
+
+?PR?MAIN?HOMEWORK01_1          0008H    001EH
+  +--> ?CO?HOMEWORK01_1
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\homework01_1 (HOMEWORK01_1)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        HOMEWORK01_1
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:0112H         PUBLIC        main
+  C:019BH         SYMBOL        _?ix1000
+  C:01AAH         SYMBOL        _?ix1001
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  04/17/2024  16:28:42  PAGE 2
+
+
+  -------         PROC          MAIN
+  -------         DO            
+  D:0008H         SYMBOL        R6
+  D:0009H         SYMBOL        R7
+  D:000AH         SYMBOL        Table1
+  D:0019H         SYMBOL        Table2
+  D:0007H         SYMBOL        x
+  -------         DO            
+  D:0023H         SYMBOL        p
+  -------         ENDDO         
+  -------         ENDDO         
+  C:0112H         LINE#         2
+  C:0112H         LINE#         3
+  C:0112H         LINE#         4
+  C:0115H         LINE#         5
+  C:0118H         LINE#         6
+  C:012BH         LINE#         7
+  C:013EH         LINE#         8
+  C:0140H         LINE#         9
+  C:0144H         LINE#         10
+  C:014CH         LINE#         11
+  C:014CH         LINE#         12
+  C:0150H         LINE#         13
+  C:0155H         LINE#         14
+  C:0157H         LINE#         16
+  C:0157H         LINE#         18
+  C:0160H         LINE#         19
+  C:0164H         LINE#         20
+  C:0179H         LINE#         21
+  C:0184H         LINE#         22
+  C:018FH         LINE#         23
+  C:019AH         LINE#         24
+  C:019AH         LINE#         25
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        HOMEWORK01_1
+
+  -------         MODULE        ?C?COPY
+  C:00D3H         PUBLIC        ?C?COPY
+  -------         ENDMOD        ?C?COPY
+
+  -------         MODULE        ?C?CLDPTR
+  C:00F9H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+Program Size: data=39.0 xdata=0 code=448
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

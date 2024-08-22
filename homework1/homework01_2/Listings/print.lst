@@ -1,0 +1,32 @@
+C51 COMPILER V9.60.7.0   PRINT                                                             04/16/2024 15:30:52 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE PRINT
+OBJECT MODULE PLACED IN .\Objects\print.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE print.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\pri
+                    -nt.lst) TABS(2) OBJECT(.\Objects\print.obj)
+
+line level    source
+
+   1          #include <stdio.h>
+   2           
+   3          #define ITM_PORT8(n)         (*(volatile unsigned char *)(0xe0000000 + 4*(n)))
+   4          #define ITM_PORT16(n)        (*(volatile unsigned short *)(0xe0000000 + 4*(n)))
+   5          #define ITM_PORT32(n)        (*(volatile unsigned long *)(0xe0000000 + 4*(n)))
+   6          #define DEMCR                (*(volatile unsigned long *)(0xE000EDFC))
+   7          #define TRCENA               0X01000000
+   8           
+   9          int fputc(int ch, FILE *f)
+*** ERROR C141 IN LINE 9 OF print.c: syntax error near '*', expected ')'
+  10          {
+  11   1          if(DEMCR & TRCENA)
+  12   1          {
+  13   2              while(ITM_PORT32(0) == 0);                                                                        
+             -                                                                                                                        
+             -                                                                                      
+  14   2              ITM_PORT8(0) = ch;
+  15   2          }
+  16   1          return ch;
+  17   1      }
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  1 ERROR(S)

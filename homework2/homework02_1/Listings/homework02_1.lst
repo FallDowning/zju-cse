@@ -1,0 +1,124 @@
+A51 MACRO ASSEMBLER  HOMEWORK02_1                                                         05/27/2024 23:05:52 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\homework02_1.obj
+ASSEMBLER INVOKED BY: D:\Keil_v5\C51\BIN\A51.EXE homework02_1.a51 SET(SMALL) DEBUG PRINT(.\Listings\homework02_1.lst) OB
+                      JECT(.\Objects\homework02_1.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1           ORG 0000H
+0000 020016            2               LJMP MAIN
+0003                   3               ORG 0003H
+0003 02002A            4               LJMP INT00
+0013                   5               ORG 0013H
+0013 020037            6               LJMP INT11
+0016                   7     MAIN: 
+0016 D2AF              8           SETB EA
+0018 D2AA              9           SETB EX1
+001A D2A8             10               SETB EX0
+001C C2BA             11               CLR  PX1
+001E D28A             12               SETB IT1
+0020 D288             13               SETB IT0
+0022 74FE             14               MOV A,#0FEH
+0024 7A01             15               MOV R2,#01H
+0026 7BFE             16               MOV R3,#0FEH
+0028 80FE             17               SJMP $
+002A                  18     INT00: 
+002A 120064           19            LCALL Delay_500ms
+002D                  20     K1DOWN:
+002D A2B2             21            MOV C,P3.2
+002F 50FC             22            JNC K1DOWN
+0031 F580             23            MOV P0,A
+0033 23               24                RL A
+0034 C289             25            CLR IE0
+0036 32               26                RETI
+0037                  27     INT11: 
+0037 BA000C           28           CJNE R2,#00H,OPEN
+003A 7BFF             29               MOV R3,#0FFH
+003C 8B80             30               MOV P0,R3
+003E 7A01             31               MOV R2,#01H
+0040                  32     RETURN:
+0040 7BFE             33           MOV R3,#0FEH
+0042 120056           34           LCALL Delay_1s
+0045 32               35           RETI
+0046                  36     OPEN: 
+0046 7A00             37           MOV R2,#00H
+0048 8B80             38               MOV P0,R3
+004A 120056           39               LCALL Delay_1s
+004D EB               40               MOV A,R3
+004E 23               41           RL A
+004F FB               42               MOV R3,A
+0050 A2B3             43               MOV C,P3.3
+0052 50EC             44               JNC RETURN
+0054 80F0             45           SJMP OPEN   
+                      46     
+0056                  47     Delay_1s: 
+0056 7D0A             48           MOV R5,#10
+0058                  49     DEL0:
+0058 7EC8             50           MOV R6,#200
+005A                  51     DEL1:
+005A 7FF8             52           MOV R7,#248
+005C 00               53               NOP
+005D                  54     DEL2:
+005D DFFE             55           DJNZ R7,DEL2
+005F DEF9             56               DJNZ R6,DEL1
+0061 DDF5             57               DJNZ R5,DEL0
+A51 MACRO ASSEMBLER  HOMEWORK02_1                                                         05/27/2024 23:05:52 PAGE     2
+
+0063 22               58               RET
+                      59               
+0064                  60     Delay_500ms:
+0064 7D05             61           MOV R5,#05
+0066                  62     DEL00:
+0066 7EC8             63           MOV R6,#200
+0068                  64     DEL01:
+0068 7FF8             65           MOV R7,#248
+006A 00               66               NOP
+006B                  67     DEL02:
+006B DFFE             68           DJNZ R7,DEL02
+006D DEF9             69               DJNZ R6,DEL01
+006F DDF5             70               DJNZ R5,DEL00
+0071 22               71               RET
+                      72               END
+                                    
+                             
+                                     
+A51 MACRO ASSEMBLER  HOMEWORK02_1                                                         05/27/2024 23:05:52 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DEL0 . . . . . . .  C ADDR   0058H   A   
+DEL00. . . . . . .  C ADDR   0066H   A   
+DEL01. . . . . . .  C ADDR   0068H   A   
+DEL02. . . . . . .  C ADDR   006BH   A   
+DEL1 . . . . . . .  C ADDR   005AH   A   
+DEL2 . . . . . . .  C ADDR   005DH   A   
+DELAY_1S . . . . .  C ADDR   0056H   A   
+DELAY_500MS. . . .  C ADDR   0064H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+EX0. . . . . . . .  B ADDR   00A8H.0 A   
+EX1. . . . . . . .  B ADDR   00A8H.2 A   
+IE0. . . . . . . .  B ADDR   0088H.1 A   
+INT00. . . . . . .  C ADDR   002AH   A   
+INT11. . . . . . .  C ADDR   0037H   A   
+IT0. . . . . . . .  B ADDR   0088H.0 A   
+IT1. . . . . . . .  B ADDR   0088H.2 A   
+K1DOWN . . . . . .  C ADDR   002DH   A   
+MAIN . . . . . . .  C ADDR   0016H   A   
+OPEN . . . . . . .  C ADDR   0046H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+PX1. . . . . . . .  B ADDR   00B8H.2 A   
+RETURN . . . . . .  C ADDR   0040H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

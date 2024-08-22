@@ -1,0 +1,61 @@
+C51 COMPILER V9.60.7.0   HOMEWORK01_1                                                      04/17/2024 17:35:34 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE HOMEWORK01_1
+OBJECT MODULE PLACED IN .\Objects\homework01_1.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE homework01_1.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listi
+                    -ngs\homework01_1.lst) TABS(2) OBJECT(.\Objects\homework01_1.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          main()
+   3          {
+   4   1        sfr R6 = 0x1E;
+*** ERROR C141 IN LINE 4 OF homework01_1.c: syntax error near 'sfr', expected 'hdata'
+*** ERROR C202 IN LINE 4 OF homework01_1.c: 'R6': undefined identifier
+   5   1        unsigned char data *R6 = 0x1E;
+*** ERROR C141 IN LINE 5 OF homework01_1.c: syntax error near 'unsigned', expected '__asm'
+*** ERROR C202 IN LINE 5 OF homework01_1.c: 'R6': undefined identifier
+   6   1        unsigned char data *R7 = 0x1F;
+*** ERROR C141 IN LINE 6 OF homework01_1.c: syntax error near 'unsigned', expected '__asm'
+*** ERROR C202 IN LINE 6 OF homework01_1.c: 'R7': undefined identifier
+   7   1        unsigned char Table1[15] = {1,4,9,16,25,36,49,64,81,100,121,144,169,196,225};
+*** ERROR C141 IN LINE 7 OF homework01_1.c: syntax error near 'unsigned', expected '__asm'
+*** ERROR C202 IN LINE 7 OF homework01_1.c: 'Table1': undefined identifier
+*** ERROR C141 IN LINE 7 OF homework01_1.c: syntax error near '{', expected 'sizeof'
+*** ERROR C141 IN LINE 7 OF homework01_1.c: syntax error near '}', expected ';'
+   8   1        unsigned int Table2[5] = {256,289,324,361,400};
+*** ERROR C141 IN LINE 8 OF homework01_1.c: syntax error near 'unsigned', expected '__asm'
+*** ERROR C141 IN LINE 8 OF homework01_1.c: syntax error near '{', expected 'sizeof'
+*** ERROR C141 IN LINE 8 OF homework01_1.c: syntax error near '}', expected ';'
+   9   1        char x = 9; 
+*** ERROR C141 IN LINE 9 OF homework01_1.c: syntax error near 'char', expected '__asm'
+  10   1        *R7 = 0;
+*** ERROR C202 IN LINE 10 OF homework01_1.c: 'R7': undefined identifier
+  11   1        if(x<16)
+*** ERROR C202 IN LINE 11 OF homework01_1.c: 'x': undefined identifier
+  12   1        {
+  13   2          *R6 = 0;
+*** ERROR C202 IN LINE 13 OF homework01_1.c: 'R6': undefined identifier
+  14   2          *R7 = Table1[x-1];
+*** ERROR C202 IN LINE 14 OF homework01_1.c: 'R7': undefined identifier
+  15   2        }
+  16   1        else
+  17   1        {
+  18   2          unsigned char *p;
+  19   2          p = Table2;
+*** ERROR C202 IN LINE 19 OF homework01_1.c: 'Table2': undefined identifier
+  20   2          x -= 16;
+*** ERROR C202 IN LINE 20 OF homework01_1.c: 'x': undefined identifier
+  21   2          p += 2*x;
+*** ERROR C202 IN LINE 21 OF homework01_1.c: 'x': undefined identifier
+  22   2          *R6 = *p; 
+*** ERROR C202 IN LINE 22 OF homework01_1.c: 'R6': undefined identifier
+  23   2          p++;
+  24   2          *R7 = *p; 
+*** ERROR C202 IN LINE 24 OF homework01_1.c: 'R7': undefined identifier
+  25   2        }
+  26   1      }
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  23 ERROR(S)

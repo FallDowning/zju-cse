@@ -1,0 +1,447 @@
+A51 MACRO ASSEMBLER  HOMEWORK3                                                            05/28/2024 20:21:55 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\homework3.obj
+ASSEMBLER INVOKED BY: D:\Keil_v5\C51\BIN\A51.EXE homework3.a51 SET(SMALL) DEBUG PRINT(.\Listings\homework3.lst) OBJECT(.
+                      \Objects\homework3.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1             ORG 0000H
+0000 020030            2         LJMP MAIN
+001B                   3             ORG 001BH
+001B 0200E1            4             LJMP L1
+0030                   5             ORG 0030H
+0030                   6     MAIN:
+0030 E4                7             CLR A
+0031 F550              8             MOV 50H,A         ;clear 50ms
+0033 F551              9             MOV 51H,A        ;clear second
+0035 F552             10             MOV 52H,A         ;clear minute
+0037 F553             11             MOV 53H,A         ;clear hour
+0039 F554             12             MOV 54H,A         ; whether display A/P or not
+003B F555             13             MOV 55H,A         ; A/P
+003D 7D00             14             MOV R5,#0
+                      15             ; some initialization
+003F D2AF             16             SETB EA             ;open interrupt 
+0041 D2AB             17             SETB ET1            ;open T1
+0043 758910           18             MOV TMOD, #10H         
+0046 758D3C           19             MOV TH1, #3CH
+0049 758BB0           20             MOV TL1,#0B0H
+004C D28E             21             SETB TR1
+004E                  22     LOOP:
+004E 12022B           23             LCALL KEY_JUDGE
+                      24             ; SX(x = 2,3,4...)represents different cases when different button is pressed
+0051 BD0103           25             CJNE R5,#1,S2
+0054 755401           26             MOV 54H,#1
+0057                  27     S2:
+0057 BD0216           28         CJNE R5,#2,S3
+005A E553             29             MOV A,53H
+005C 04               30             INC A
+005D B40C0C           31             CJNE A,#12,S2_NEXT
+0060 7400             32             MOV A,#0
+0062 F553             33             MOV 53H,A
+0064 E555             34             MOV A,55H
+0066 B2E7             35             CPL ACC.7
+0068 F555             36             MOV 55H,A
+006A 01D9             37             AJMP DIS
+006C                  38     S2_NEXT:
+006C F553             39             MOV 53H,A
+006E 01D9             40             AJMP DIS
+                      41             
+0070                  42     S3:
+0070 BD0310           43         CJNE R5,#3,S4
+0073 E552             44             MOV A,52H
+0075 04               45             INC A
+0076 B43C06           46             CJNE A,#60,S3_NEXT
+0079 E500             47             MOV A,0
+007B F552             48             MOV 52H,A
+007D 01D9             49             AJMP DIS
+007F                  50     S3_NEXT:
+007F F552             51             MOV 52H,A
+0081 01D9             52             AJMP DIS
+                      53     
+0083                  54     S4:
+0083 BD0410           55         CJNE R5,#4,S5
+0086 E551             56             MOV A,51H
+0088 04               57             INC A
+A51 MACRO ASSEMBLER  HOMEWORK3                                                            05/28/2024 20:21:55 PAGE     2
+
+0089 B43C06           58             CJNE A,#60,S4_NEXT
+008C 7400             59             MOV A,#0
+008E F551             60             MOV 51H,A
+0090 01D9             61             AJMP DIS
+0092                  62     S4_NEXT:
+0092 F551             63             MOV 51H,A
+0094 01D9             64             AJMP DIS
+                      65     
+0096                  66     S5:
+0096 BD0503           67         CJNE R5,#5,S6
+0099 755400           68             MOV 54H,#0
+                      69             
+009C                  70     S6:
+009C BD0616           71             CJNE R5,#6,S7
+009F E553             72             MOV A,53H
+00A1 14               73             DEC A
+00A2 B4FF0C           74             CJNE A,#0FFH,S6_NEXT
+00A5 740B             75             MOV A,#11
+00A7 F553             76             MOV 53H,A
+00A9 E555             77             MOV A,55H
+00AB B2E7             78             CPL ACC.7
+00AD F555             79             MOV 55H,A
+00AF 01D9             80             AJMP DIS
+00B1                  81     S6_NEXT:
+00B1 F553             82         MOV 53H,A
+00B3 01D9             83             AJMP DIS
+                      84     
+00B5                  85     S7:
+00B5 BD0710           86         CJNE R5,#7,S8
+00B8 E552             87             MOV A,52H
+00BA 14               88             DEC A
+00BB B4FF06           89             CJNE A,#0FFH,S7_NEXT
+00BE 743B             90             MOV A,#59
+00C0 F552             91             MOV 52H,A
+00C2 01D9             92             AJMP DIS
+00C4                  93     S7_NEXT:
+00C4 F552             94         MOV 52H,A
+00C6 01D9             95             AJMP DIS
+                      96             
+                      97             
+00C8                  98     S8:
+00C8 BD080E           99         CJNE R5,#8,DIS
+00CB E551            100         MOV A,51H
+00CD 14              101             DEC A
+00CE B4FF06          102             CJNE A,#0FFH,S8_NEXT
+00D1 743B            103             MOV A,#59
+00D3 F551            104             MOV 51H,A
+00D5 01D9            105             AJMP DIS
+00D7                 106     S8_NEXT:
+00D7 F551            107         MOV 51H,A
+                     108             
+00D9                 109     DIS:
+00D9 120116          110         LCALL DISPLAY
+00DC 7D00            111             MOV R5,#0
+00DE 02004E          112             LJMP LOOP
+                     113     
+                     114     ; interrupt function
+00E1                 115     L1:
+00E1 758D3C          116             MOV TH1,#3CH
+00E4 758BB0          117             MOV TL1,#0B0H
+00E7 0550            118             INC 50H
+00E9 E550            119             MOV A,50H
+00EB B41427          120             CJNE A,#20,L2
+00EE 755000          121             MOV 50H,#00H
+00F1 0551            122             INC 51H
+00F3 E551            123             MOV A,51H
+A51 MACRO ASSEMBLER  HOMEWORK3                                                            05/28/2024 20:21:55 PAGE     3
+
+00F5 B43C1D          124             CJNE A,#60,L2
+00F8 755100          125             MOV 51H,#00H
+00FB 0552            126             INC 52H
+00FD E552            127             MOV A,52H
+00FF B43C13          128             CJNE A,#60,L2
+0102 755200          129             MOV 52H,#00H
+0105 0553            130             INC 53H
+0107 E553            131             MOV A,53H
+0109 B40C09          132             CJNE A,#12,L2
+010C 755300          133             MOV 53H,#00H   ; when hour is larger than 12 ,transform A/P
+010F E555            134             MOV A,55H    
+0111 B2E7            135             CPL ACC.7
+0113 F555            136             MOV 55H,A
+0115                 137     L2:
+0115 32              138             RETI
+                     139         
+                     140     
+                     141             
+                     142             
+                     143     ; display  seconds,minutes,hours
+0116                 144     DISPLAY:
+0116 900270          145         MOV DPTR, #TABLE
+0119 E551            146         MOV A, 51H
+011B B40A18          147             CJNE A,#10,SECONDS
+011E 75A007          148             MOV P2,#00000111B          ; this part outputs 10th seconds
+0121 7400            149             MOV A,#0
+0123 93              150             MOVC A,@A+DPTR
+0124 F580            151             MOV P0,A
+0126 758000          152             MOV P0,#0
+0129 75A006          153             MOV P2,#00000110B              
+012C 7401            154             MOV A,#1
+012E 93              155             MOVC A,@A+DPTR
+012F F580            156             MOV P0,A
+0131 758000          157         MOV P0,#0
+0134 8032            158             SJMP THIRD
+0136                 159     SECONDS:                              ; this part outputs 11~59seconds
+0136 401C            160         JC ONE_SECONDS
+0138 75F00A          161             MOV B, #10
+013B 84              162             DIV AB
+013C F8              163             MOV R0,A
+013D E5F0            164             MOV A,B
+013F 75A007          165             MOV P2,#00000111B          ; the first light  of seconds
+0142 93              166             MOVC A,@A+DPTR 
+0143 F580            167             MOV P0,A
+0145 758000          168             MOV P0,#0
+0148 E8              169             MOV A,R0
+0149 75A006          170             MOV P2,#00000110B              ; the second light of seconds
+014C 93              171             MOVC A,@A+DPTR
+014D F580            172             MOV P0,A
+014F 758000          173         MOV P0,#0
+0152 8014            174             SJMP THIRD
+0154                 175     ONE_SECONDS:                   ; this part outputs 0~9seconds
+0154 75A007          176         MOV P2,#00000111B          ; the first light  of seconds
+0157 93              177             MOVC A,@A+DPTR 
+0158 F580            178             MOV P0,A
+015A 758000          179             MOV P0,#0
+015D 75A006          180             MOV P2,#00000110B              ; the second light  of seconds
+0160 7400            181             MOV A,#0
+0162 93              182             MOVC A,@A+DPTR
+0163 F580            183             MOV P0,A
+0165 758000          184         MOV P0,#0
+0168                 185     THIRD:
+0168 E552            186         MOV A, 52H
+016A B40A18          187             CJNE A,#10,MINUTES
+016D 75A005          188             MOV P2,#00000101B          ; this part outputs 10th minutes
+0170 7400            189             MOV A,#0
+A51 MACRO ASSEMBLER  HOMEWORK3                                                            05/28/2024 20:21:55 PAGE     4
+
+0172 93              190             MOVC A,@A+DPTR
+0173 F580            191             MOV P0,A
+0175 758000          192             MOV P0,#0
+0178 75A004          193             MOV P2,#00000100B              
+017B 7401            194             MOV A,#1
+017D 93              195             MOVC A,@A+DPTR
+017E F580            196             MOV P0,A
+0180 758000          197         MOV P0,#0
+0183 8032            198             SJMP FOURTH
+0185                 199     MINUTES:                              ; this part outputs 11~59minutes
+0185 401C            200         JC ONE_MINUTES
+0187 75F00A          201             MOV B, #10
+018A 84              202             DIV AB
+018B F8              203             MOV R0,A
+018C E5F0            204             MOV A,B
+018E 75A005          205             MOV P2,#00000101B          ; the first light of minutes
+0191 93              206             MOVC A,@A+DPTR 
+0192 F580            207             MOV P0,A
+0194 758000          208             MOV P0,#0
+0197 E8              209             MOV A,R0
+0198 75A004          210             MOV P2,#00000100B              ; the second light of minutes
+019B 93              211             MOVC A,@A+DPTR
+019C F580            212             MOV P0,A
+019E 758000          213         MOV P0,#0
+01A1 8014            214             SJMP FOURTH
+01A3                 215     ONE_MINUTES:                   ; this part outputs 0~9minutes
+01A3 75A005          216         MOV P2,#00000101B          ; the first light of minutes
+01A6 93              217             MOVC A,@A+DPTR 
+01A7 F580            218             MOV P0,A
+01A9 758000          219             MOV P0,#0
+01AC 75A004          220             MOV P2,#00000100B              ; the second light of minutes
+01AF 7400            221             MOV A,#0
+01B1 93              222             MOVC A,@A+DPTR
+01B2 F580            223             MOV P0,A
+01B4 758000          224         MOV P0,#0
+                     225             
+01B7                 226     FOURTH:
+01B7 E553            227         MOV A, 53H
+01B9 B40A18          228             CJNE A,#10,HOURS
+01BC 75A003          229             MOV P2,#00000011B          ; this part outputs 10th hours
+01BF 7400            230             MOV A,#0
+01C1 93              231             MOVC A,@A+DPTR
+01C2 F580            232             MOV P0,A
+01C4 758000          233             MOV P0,#0
+01C7 75A002          234             MOV P2,#00000010B              
+01CA 7401            235             MOV A,#1
+01CC 93              236             MOVC A,@A+DPTR
+01CD F580            237             MOV P0,A
+01CF 758000          238         MOV P0,#0
+01D2 8032            239             SJMP LAST
+01D4                 240     HOURS:                        ; this part outputs 11~12hours
+01D4 401C            241         JC ONE_HOURS
+01D6 75F00A          242             MOV B, #10
+01D9 84              243             DIV AB
+01DA F8              244             MOV R0,A
+01DB E5F0            245             MOV A,B
+01DD 75A003          246             MOV P2,#00000011B          ; the first light of hours
+01E0 93              247             MOVC A,@A+DPTR 
+01E1 F580            248             MOV P0,A
+01E3 758000          249             MOV P0,#0
+01E6 E8              250             MOV A,R0
+01E7 75A002          251             MOV P2,#00000010B              ; the second light of hours
+01EA 93              252             MOVC A,@A+DPTR
+01EB F580            253             MOV P0,A
+01ED 758000          254         MOV P0,#0
+01F0 8014            255             SJMP LAST
+A51 MACRO ASSEMBLER  HOMEWORK3                                                            05/28/2024 20:21:55 PAGE     5
+
+01F2                 256     ONE_HOURS:                   ; this part outputs 0~9hours
+01F2 75A003          257         MOV P2,#00000011B          ; the first light 
+01F5 93              258             MOVC A,@A+DPTR 
+01F6 F580            259             MOV P0,A
+01F8 758000          260             MOV P0,#0
+01FB 75A002          261             MOV P2,#00000010B              ; the second light of hours
+01FE 7400            262             MOV A,#0
+0200 93              263             MOVC A,@A+DPTR
+0201 F580            264             MOV P0,A
+0203 758000          265         MOV P0,#0
+0206                 266     LAST:                        
+0206 E554            267         MOV A,54H
+0208 B40002          268         CJNE A,#0,LAST_1
+020B 801D            269             SJMP DIS_RETURN
+020D                 270     LAST_1:
+020D 75A001          271         MOV P2,#00000001B        ; display '-'
+0210 758040          272             MOV P0,#40H
+0213 758000          273             MOV P0,#0
+0216 75A000          274             MOV P2,#00000000B
+0219 E555            275         MOV A,55H
+021B B40006          276             CJNE A,#0,LAST_2
+021E 758077          277             MOV P0,#77H               ; display 'A'
+0221 758000          278             MOV P0,#0
+0224                 279     LAST_2:
+0224 758073          280         MOV P0,#73H               ; display 'p'
+0227 758000          281             MOV P0,#0
+022A                 282     DIS_RETURN:    
+022A 22              283             RET
+                     284             
+                     285             
+022B                 286     KEY_JUDGE:
+022B 7590F0          287         MOV P1, #0F0H
+022E E590            288             MOV A,P1
+0230 54F0            289             ANL A,#0F0H               ; P1.0~P1.3 reprsents row0 ~ row3 while P1.4 ~P1.7 repres
+                             ents column0 ~ column3
+0232 64F0            290             XRL A,#0F0H
+0234 6039            291             JZ RETURN
+0236 120283          292         LCALL DELAY_10MS          ; debounce
+0239 E590            293         MOV A,P1
+023B 54F0            294             ANL A,#0F0H
+023D 64F0            295             XRL A,#0F0H
+023F 602E            296             JZ RETURN
+0241 7AFE            297             MOV R2,#11111110B         ; detect from row0 
+0243                 298     SCAN:
+0243 EA              299         MOV A,R2
+0244 F590            300             MOV P1,A
+0246 E590            301             MOV A,P1
+0248 54F0            302             ANL A,#11110000B
+024A FB              303             MOV R3,A
+024B B4F007          304             CJNE A,#0F0H,KEY_DOWN
+024E EA              305             MOV A,R2
+024F 23              306             RL A
+0250 FA              307             MOV R2,A
+0251 64EF            308             XRL A,#11101111B          ; end after row3 has been detected
+0253 70EE            309             JNZ SCAN
+0255                 310     KEY_DOWN:
+0255 EA              311         MOV A,R2
+0256 540F            312             ANL A,#00001111B          
+0258 4B              313             ORL A,R3                  ; gets button's code
+0259 FC              314             MOV R4,A
+025A 7D01            315             MOV R5,#1
+025C 90027A          316             MOV DPTR,#KEY_TABLE
+025F                 317     CAL:
+025F ED              318         MOV A,R5                 ;  transform button's code to button's index
+0260 93              319             MOVC A,@A+DPTR
+0261 6C              320             XRL A,R4
+A51 MACRO ASSEMBLER  HOMEWORK3                                                            05/28/2024 20:21:55 PAGE     6
+
+0262 6003            321             JZ FIXED
+0264 0D              322             INC R5
+0265 80F8            323             SJMP CAL
+0267                 324     FIXED:
+0267 E590            325         MOV A,P1
+0269 54F0            326             ANL A,#0F0H
+026B 64F0            327             XRL A,#0F0H                ; restore button's code in R5
+026D 70F8            328             JNZ FIXED
+026F                 329     RETURN:
+026F 22              330         RET 
+                     331             
+0270                 332     TABLE: 
+0270 3F065B4F        333         DB 3FH,06H,5BH,4FH,66H,6DH,7DH,07H,7FH,6FH  ; the code of character '0' ~ '9'
+0274 666D7D07                
+0278 7F6F                    
+027A                 334     KEY_TABLE:
+027A 00EEDEBE        335         DB 0,0EEH,0DEH,0BEH,7EH,0EDH,0DDH,0BDH,7DH  ; this repesents the feature code of button
+                             s s1~s8, 0 represents nothing, it's just a placeholder 
+027E 7EEDDDBD                
+0282 7D                      
+                     336     
+                     337     ; Actually, it's delay 5ms, but I'm too lazy to modify it's name ^_^ 
+0283                 338     DELAY_10MS:
+0283 7E0F            339           MOV R6,#15
+0285                 340     DEL01:
+0285 7FF8            341           MOV R7,#248
+0287 00              342               NOP
+0288                 343     DEL02:
+0288 DFFE            344           DJNZ R7,DEL02
+028A DEF9            345               DJNZ R6,DEL01
+028C 22              346               RET
+                     347                     
+                     348     end 
+                                     
+                                 
+                                     
+                             
+                             
+                             
+A51 MACRO ASSEMBLER  HOMEWORK3                                                            05/28/2024 20:21:55 PAGE     7
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+CAL. . . . . . . .  C ADDR   025FH   A   
+DEL01. . . . . . .  C ADDR   0285H   A   
+DEL02. . . . . . .  C ADDR   0288H   A   
+DELAY_10MS . . . .  C ADDR   0283H   A   
+DIS. . . . . . . .  C ADDR   00D9H   A   
+DISPLAY. . . . . .  C ADDR   0116H   A   
+DIS_RETURN . . . .  C ADDR   022AH   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET1. . . . . . . .  B ADDR   00A8H.3 A   
+FIXED. . . . . . .  C ADDR   0267H   A   
+FOURTH . . . . . .  C ADDR   01B7H   A   
+HOURS. . . . . . .  C ADDR   01D4H   A   
+KEY_DOWN . . . . .  C ADDR   0255H   A   
+KEY_JUDGE. . . . .  C ADDR   022BH   A   
+KEY_TABLE. . . . .  C ADDR   027AH   A   
+L1 . . . . . . . .  C ADDR   00E1H   A   
+L2 . . . . . . . .  C ADDR   0115H   A   
+LAST . . . . . . .  C ADDR   0206H   A   
+LAST_1 . . . . . .  C ADDR   020DH   A   
+LAST_2 . . . . . .  C ADDR   0224H   A   
+LOOP . . . . . . .  C ADDR   004EH   A   
+MAIN . . . . . . .  C ADDR   0030H   A   
+MINUTES. . . . . .  C ADDR   0185H   A   
+ONE_HOURS. . . . .  C ADDR   01F2H   A   
+ONE_MINUTES. . . .  C ADDR   01A3H   A   
+ONE_SECONDS. . . .  C ADDR   0154H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+RETURN . . . . . .  C ADDR   026FH   A   
+S2 . . . . . . . .  C ADDR   0057H   A   
+S2_NEXT. . . . . .  C ADDR   006CH   A   
+S3 . . . . . . . .  C ADDR   0070H   A   
+S3_NEXT. . . . . .  C ADDR   007FH   A   
+S4 . . . . . . . .  C ADDR   0083H   A   
+S4_NEXT. . . . . .  C ADDR   0092H   A   
+S5 . . . . . . . .  C ADDR   0096H   A   
+S6 . . . . . . . .  C ADDR   009CH   A   
+S6_NEXT. . . . . .  C ADDR   00B1H   A   
+S7 . . . . . . . .  C ADDR   00B5H   A   
+S7_NEXT. . . . . .  C ADDR   00C4H   A   
+S8 . . . . . . . .  C ADDR   00C8H   A   
+S8_NEXT. . . . . .  C ADDR   00D7H   A   
+SCAN . . . . . . .  C ADDR   0243H   A   
+SECONDS. . . . . .  C ADDR   0136H   A   
+TABLE. . . . . . .  C ADDR   0270H   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+THIRD. . . . . . .  C ADDR   0168H   A   
+TL1. . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
